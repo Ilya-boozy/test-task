@@ -18,13 +18,14 @@ class MainController extends Controller
         return view('order_list', ['order_array' => Order::onlyTrashed()->get(), 'restore' => true]);
     }
 
-    public function orderRestorePost(Request $request,DatabaseService $database_service)
+    public function orderRestorePost(Request $request, DatabaseService $database_service)
     {
-        foreach ($request->request as $key => $value){
-            if (strripos($key,"CheckBox") !== false) {
+        foreach ($request->request as $key => $value) {
+            if (strripos($key, "CheckBox") !== false) {
                 $database_service->restoreFromDBById(intval($value));
             }
         }
-        return redirect("/order-restore",302);
+
+        return redirect("/order-restore", 302);
     }
 }
